@@ -2,12 +2,9 @@ library twitter_qr_scanner;
 
 import 'dart:async';
 
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 typedef void QRViewCreatedCallback(QRViewController controller);
 
@@ -43,12 +40,11 @@ class QRView extends StatefulWidget {
 
 class _QRViewState extends State<QRView> {
   bool isScanMode = false;
-  CarouselSlider slider;
+  var slider;
   var flareAnimation = "view";
 
   @override
   void initState() {
-    print('FUrkan');
     isScanMode = widget.initialMode == QRMode.SCANNER;
 
     super.initState();
@@ -56,51 +52,12 @@ class _QRViewState extends State<QRView> {
 
   getSlider() {
     setState(() {
-      slider = CarouselSlider(
-        options: CarouselOptions(
-            height: MediaQuery.of(context).size.height,
-            viewportFraction: 1.0,
-            enableInfiniteScroll: false,
-            initialPage: widget.initialMode == QRMode.SCANNER ? 0 : 1,
-            onPageChanged: (index, reason) {
-              setState(() {
-                isScanMode = index == 0;
-                if (isScanMode) {
-                  flareAnimation = "scanToView";
-                } else {
-                  flareAnimation = "viewToScan";
-                }
-              });
-            }),
-        items: [
+      slider = 
           Container(
-            alignment: Alignment.center,
-            decoration: ShapeDecoration(
-              shape: widget.overlay,
-            ),
-          ),
-          Container(
-            alignment: Alignment.center,
-            decoration: ShapeDecoration(
-              shape: widget.overlay,
-            ),
-            child: Container(
-              width: 240,
-              height: 240,
-              padding: EdgeInsets.all(21),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16),
-                color: widget.qrCodeBackgroundColor,
-              ),
-              child: QrImage(
-                data: widget.data,
-                version: QrVersions.auto,
-                foregroundColor: widget.qrCodeForegroundColor,
-                gapless: true,
-              ),
-            ),
-          ),
-        ],
+        alignment: Alignment.center,
+        decoration: ShapeDecoration(
+          shape: widget.overlay,
+        ),
       );
     });
     return slider;

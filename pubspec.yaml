@@ -12,8 +12,8 @@ dependencies:
     sdk: flutter
 
   qr_flutter: ^3.2.0
-  flare_flutter: ^2.0.1
-  carousel_slider: ^2.3.4
+  # flare_flutter: ^2.0.1
+  # carousel_slider: ^2.3.4
 
 dev_dependencies:
   flutter_test:
